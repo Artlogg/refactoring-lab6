@@ -10,7 +10,28 @@ VIP_HIGH_DISCOUNT = 50
 VIP_LOW_DISCOUNT = 10
 VIP_THRESHOLD = 100
 
+def calculate_subtotal(items):
+    return sum(it["price"] * it["qty"] for it in items)
 
+def calculate_tax(amount):
+    return int(amount * TAX_RATE)
+
+def calculate_discount(subtotal, coupon):
+    if not coupon:
+        return 0
+
+    if coupon == "SAVE10":
+        return int(subtotal * SAVE10_RATE)
+
+    if coupon == "SAVE20":
+        if subtotal >= SAVE20_THRESHOLD:
+            return int(subtotal * SAVE20_HIGH_RATE)
+        return int(subtotal * SAVE20_LOW_RATE)
+
+    if coupon == "VIP":
+        return VIP_HIGH_DISCOUNT if subtotal >= VIP_THRESHOLD else VIP_LOW_DISCOUNT
+
+    raise ValueError("unknown coupon")
 
 def parse_request(request: dict):
     user_id = request.get("user_id")
