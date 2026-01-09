@@ -1,3 +1,17 @@
+DEFAULT_CURRENCY = "USD"
+TAX_RATE = 0.21
+
+SAVE10_RATE = 0.10
+SAVE20_HIGH_RATE = 0.20
+SAVE20_LOW_RATE = 0.05
+SAVE20_THRESHOLD = 200
+
+VIP_HIGH_DISCOUNT = 50
+VIP_LOW_DISCOUNT = 10
+VIP_THRESHOLD = 100
+
+
+
 def parse_request(request: dict):
     user_id = request.get("user_id")
     items = request.get("items")
